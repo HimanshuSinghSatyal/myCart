@@ -1,8 +1,13 @@
-import React from  "react";
-import {ImSpinner3} from "react-icons/im"
+import React from "react";
+import { ImSpinner3 } from "react-icons/im";
 
-function Loading() {
-  return <div className="grow text-red-500 text-6xl bg-gray-300 flex items-center justify-center "> < ImSpinner3 className="animate-spin"/></div>
+function Loading(){
   
+  return(
+    <div className="h-screen flex  justify-center items-center">
+    <ImSpinner3 className="animate-spin text-6xl text-rose-500"/>
+    </div>
+  );
 }
- export default Loading ;
+
+export default Loading;

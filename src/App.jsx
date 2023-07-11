@@ -1,45 +1,59 @@
-import React, {useState} from 'react';
-import ProductListPage from './ProductListPage';
+import React,{useState, useEffect} from 'react';
+import {Routes, Route} from "react-router-dom";
 import Navbar from './Navbar';
+import ProductListPage from "./ProductListPage";
 import Footer from './Footer';
-import {Routes, Route} from 'react-router-dom';
-import ProductDetails from './ProductDetails';
-import NotFound from "./NotFound";
+import ProductDetailPage from "./ProductDetailPage";
+import NotFoundPage from "./NotFoundPage";
+import CartPage from "./CartPage";
+import LogInPage from "./LogInPage";
+import SignUp from "./SignUp";
+import AuthRoute from "./AuthRoute";
+import UserRoute from "./UserRoute";
+import axios from "axios";
+import Loading from "./Loading";
+import Alert  from "./Alert";
+import {alertContext} from "./Context";
+import UserProvidar from "./providar/UserProvidar";
+import AlertProvidar from "./providar/AlertProvidar";
+import CartProvidar from "./providar/CartProvidar";
+
+
+ 
 
 function App() {
-
-  const dataString = localStorage.getItem("my-cart") ||"{}";
-  
-const saveData = JSON.parse(dataString);
-  
-  const [cart, setCart] = useState(saveData);
-   
-function hendleAddToCard(productId, count) {
-const oldcount= cart[productId] || 0;
-  const newCart= ({ ...cart, [productId] : oldcount + count});
-  setCart (newCart);
-  
- const cartString = JSON.stringify(newCart);
-
-  localStorage.setItem("my-cart",cartString);
-};
- const totalCount= Object.keys(cart).reduce(function(privious, current) {
-   return  privious + cart[current]
-  },0);
-  
-    return (
-  <div className="bg-gray-200 h-screen overflow-scroll flex flex-col">
-     <Navbar productCount={totalCount }/>
     
-     <Routes>
-      <Route index element={ <ProductListPage/>} />
-      <Route path ="/products/:id/" element={<ProductDetails onAddToCard={hendleAddToCard}/>} />   
-       <Route path="*" element={<NotFound/>} /> 
-  </Routes>
+  return (
+    <div className="bg-sky-100 h-screen overflow-scroll flex flex-col">
     
+      <div className="grow">
+
+        
+
+      <UserProvidar>
+        <CartProvidar>
+        <AlertProvidar>  
+          
+    <Navbar/>
+      <Alert/>  
+    <Routes>
+      <Route index element={ <UserRoute><ProductListPage/> </UserRoute> }/>
+      <Route path="/products/:id/" element={<ProductDetailPage/> } />
+      <Route path="*" element={<NotFoundPage/>} />
+      <Route path= "/Cart" element={<CartPage/>} />
+      <Route path="/LogIn" element={<AuthRoute><LogInPage/></AuthRoute>} />
+      <Route path="/SignUp" element={<AuthRoute><SignUp/> </AuthRoute> }  />
+  
+    </Routes>
       <Footer/>
-        </div>
-   
+      </AlertProvidar>
+          </CartProvidar>
+        </UserProvidar>
+        
+    </div>  
+      </div>
   );
 }
+
 export default App;
+
