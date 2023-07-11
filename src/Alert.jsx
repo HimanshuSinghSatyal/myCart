@@ -1,4 +1,6 @@
-import React,{useEffect} from "react";
+git remote add origin https://github.com/HimanshuSinghSatyal/mycrat.git
+git branch -M main
+git push -u origin maiimport React,{useEffect} from "react";
 import {IoMdCheckbox } from "react-icons/io";
 import  {CgDanger} from "react-icons/cg";
 import {alertContext} from "./Context";
